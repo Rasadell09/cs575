@@ -1,0 +1,10 @@
+#!/bin/csh
+
+foreach t ( 1 2 4 8 16 )
+    foreach s ( 50 100 500 1000 2000 4000 )
+	echo NUMT = $t
+	echo NUMS = $s
+	g++ -DNUMT=$t -DNUMS=$s prj1.cpp -o prog -lm -fopenmp
+	./prog
+    end
+end

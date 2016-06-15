@@ -1,0 +1,8 @@
+#!/bin/csh
+
+foreach t ( 1024 2048 4096 8192 16384 32768 )
+	echo ARR_LEN=$t
+	g++ -c simd.p5.cpp -o simd.p5.o
+	g++ -o prog -DARR_LEN=$t arraymult.cpp simd.p5.o -lm -fopenmp
+	./prog
+end

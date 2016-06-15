@@ -1,0 +1,4 @@
+#!/bin/csh
+
+g++ prj4.cpp -o prog -lm -fopenmp
+./prog

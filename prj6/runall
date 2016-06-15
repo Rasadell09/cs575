@@ -1,0 +1,21 @@
+#!/bin/csh
+echo Multiply1
+foreach t ( 1024 4096 16384 65536 262144 524288 1048576 2097152 4194304 8388608 )
+	foreach n ( 8 16 32 64 128 256 512 )
+		g++ -Wno-write-strings -o mul1 -DNUM_ELEMENTS=$t -DLOCAL_SIZE=$n multiply1.cpp /scratch/cuda-7.0/lib64/libOpenCL.so -lm -fopenmp
+		./mul1
+	end
+end
+echo Multiply2
+foreach t ( 1024 4096 16384 65536 262144 524288 1048576 2097152 4194304 8388608 )
+	foreach n ( 8 16 32 64 128 256 512 )
+		g++ -Wno-write-strings -o mul2 -DNUM_ELEMENTS=$t -DLOCAL_SIZE=$n multiply2.cpp /scratch/cuda-7.0/lib64/libOpenCL.so -lm -fopenmp
+		./mul2
+	end
+end
+echo MultiplyReduce
+foreach t ( 1024 4096 16384 65536 262144 524288 1048576 2097152 4194304 8388608 )
+	g++ -Wno-write-strings -o mulredu -DNUM_ELEMENTS=$t -DLOCAL_SIZE=32 multiply2.cpp /scratch/cuda-7.0/lib64/libOpenCL.so -lm -fopenmp
+	./mulredu
+end
+
